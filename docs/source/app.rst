@@ -21,22 +21,6 @@ Args:
 Attributes:
     - ``generators (dict[str, Generator])``: A dictionary mapping generator names to their instances.
     - ``selected_generator (Generator)``: The currently selected generator for response generation.
-    
-.. code-block:: python
-    from maxaillm.app.generator.MaxGenerator import MaxGenerator
-    
-    
-    # define prompt configuration
-    p_conf = {'moderations':'', 'task':'', 'identity':''}
-    
-    # initialize MaxGenerator
-    mg = MaxGenerator(llm=llm, method='stuff', prompt_config=p_conf, engine="langchain")
-    
-    # generate batch response
-    mg.generate(query='Explain Reinforcement Learning', context=out)
-    
-    # to generate 
-    mg.generate_stream(query='Explain Reinforcement Learning', context=out)
 
 Methods:
     - ``generate(query, context, conversation)``: Generates a response based on the query and context.
@@ -63,3 +47,53 @@ Methods:
         - ``context (List[str])``: The context for the query.
         - ``query (str)``: The query to generate a response for.
         - ``chat (str)``: The chat history.
+        
+.. code-block:: python
+    from maxaillm.app.generator.MaxGenerator import MaxGenerator
+    
+    
+    # define prompt configuration
+    p_conf = {'moderations':'', 'task':'', 'identity':''}
+    
+    # initialize MaxGenerator
+    mg = MaxGenerator(llm=llm, method='stuff', prompt_config=p_conf, engine="langchain")
+    
+    # generate batch response
+    mg.generate(query='Explain Reinforcement Learning', context=out)
+    
+    # to generate 
+    mg.generate_stream(query='Explain Reinforcement Learning', context=out)
+        
+        
+memory
+******
+
+MaxMemory
+^^^^^^^^^
+MaxMemory is a class that provides functionality for managing chat message history in a PostgreSQL database.
+
+Args:
+    - ``session (type)``: The ID of the chat session.
+
+Attributes:
+    - ``connection_string (str)``: The connection string for the PostgreSQL database.
+    - ``session_id (str)``: The ID of the current chat session.
+    - ``history (MaxChatMessageHistory)``: The chat message history.
+    
+Raises:
+    - ``Exception``: If the necessary environment variables for the database connection are not set.
+
+Methods:
+    - ``add_message(message)``: Adds a message to the chat history.
+
+        - ``message (dict)``: The message to add.
+
+    - ``clear()``: Clears the chat history.
+
+    - ``get_message_history(n)``: Returns the last n messages from the chat history.
+
+        - ``n (int)``: The number of messages to return.
+
+    - ``get_chat_sessions(sessions)``: Returns the chat history for the given sessions.
+
+        - ``sessions (list, optional)``: The IDs of the sessions to return the chat history for.
