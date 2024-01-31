@@ -19,7 +19,7 @@ release = '0.1.0'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 # Add any Sphinx extension module names here, as strings
-extensions = ['sphinxcontrib.napoleon']
+extensions = ['sphinx.ext.napoleon']
 
 # Napoleon settings
 napoleon_google_docstring = True
@@ -35,6 +35,7 @@ napoleon_use_param = True
 napoleon_use_rtype = True
 napoleon_use_keyword = True
 napoleon_custom_sections = None
+
 templates_path = ['_templates']
 exclude_patterns = []
 
