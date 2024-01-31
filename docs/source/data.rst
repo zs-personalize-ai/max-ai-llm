@@ -319,3 +319,160 @@ Raises:
         remove_isolated_symbols=True, 
         compress_whitespace=True
     )
+    
+
+retriever
+*********
+
+HyDE
+^^^^^^
+HyDE is a class that inherits from Retriever and provides methods for retrieving documents using a Hypothetical-Deductive Engine.
+
+Args:
+    - ``search_type``: The type of search to perform.
+    - ``vectordb (MaxLangchainVectorStore)``: The vector database used for document retrieval.
+    - ``llm (LLM)``: The language model used for generating hypothetical answers.
+    - ``search_args``: The arguments for the search.
+
+Attributes:
+    - ``llm (LLM)``: The language model used for generating hypothetical answers.
+    - ``vectordb (MaxLangchainVectorStore)``: The vector database used for document retrieval.
+    - ``search_args``: The arguments for the search.
+    - ``search_type``: The type of search to perform.
+    - ``_template (str)``: A template string used for generating hypothetical answers.
+
+Methods:
+    - ``_get_relevant_documents(query)``: Generates a hypothetical answer for the given query.
+
+        - ``query (str)``: The input query string.
+
+    - ``retrieve(query)``: Retrieves documents based on the hypothetical answer generated for the query.
+
+        - ``query (str)``: The input query string.
+        
+MultiQuery  
+^^^^^^^^^^^^
+MultiQuery is a class that inherits from Retriever and provides methods for retrieving documents using multiple queries.
+
+Args:
+    - ``search_type``: The type of search to perform.
+    - ``vectordb (MaxLangchainVectorStore)``: The vector database used for document retrieval.
+    - ``llm (LLM)``: The language model used for query expansion.
+    - ``search_args``: The arguments for the search.
+
+Attributes:
+    - ``retriever (MultiQueryRetriever)``: The retriever used for document retrieval.
+
+Methods:
+    - ``retrieve(query)``: Retrieves documents using multiple queries generated from the input query.
+
+        - ``query (str)``: The input query string.
+        
+HybridSearch
+^^^^^^^^^^^^
+HybridSearch is a class that inherits from Retriever and provides methods for retrieving documents using a hybrid approach.
+
+Args:
+    - ``search_type``: The type of search to perform.
+    - ``vectordb (MaxLangchainVectorStore)``: The vector database used for document retrieval.
+    - ``llm (LLM)``: The language model used for query expansion.
+    - ``collection_desc (str)``: Description of the document collection.
+    - ``metadata_schema (dict)``: Schema for the metadata associated with the documents.
+
+Attributes:
+    - ``retriever (SelfQueryRetriever)``: The retriever used for document retrieval.
+
+Methods:
+    - ``retrieve(query)``: Retrieves documents based on a hybrid approach combining vector search and language model query expansion.
+
+        - ``query (str)``: The input query string.
+        
+LostInMiddle
+^^^^^^^^^^^^
+LostInMiddle is a class that inherits from ReRanker and provides methods for reordering documents based on longer context.
+
+Attributes:
+    - ``reranker (LongContextReorder)``: The reranker used for document reordering.
+
+Methods:
+    - ``rerank(query, docs)``: Reranks documents based on the given query.
+
+        - ``query (str)``: The input query string.
+        - ``docs (List[Document])``: The list of input documents.
+        
+Cohere
+^^^^^^
+Cohere is a class that inherits from ReRanker and provides methods for reordering documents based on the query using cohere.
+
+Attributes:
+    - ``reranker (CohereRerank)``: The reranker used for document reordering.
+
+Methods:
+    - ``rerank(query, docs)``: Reranks documents based on the given query.
+
+        - ``query (str)``: The input query string.
+        - ``docs (List[Document])``: The list of input documents.
+        
+MaxRetriever
+^^^^^^^^^^^^
+MaxRetriever is a class that inherits from MaxLLMMixin and provides a single interface for using different retrieval and reranking methods.
+
+Args:
+    - ``vectordb (MaxLangchainVectorStore)``: The vector database used for document retrieval.
+    - ``llm (LLM, optional)``: The language model.
+    - ``search_type (str, optional)``: The type of search to perform. Default is "mmr".
+    - ``retriever_type (str, optional)``: The type of retriever to use. Default is an empty string.
+    - ``reranker_type (str, optional)``: The type of reranker to use. Default is an empty string.
+    - ``k (int, optional)``: The number of documents to retrieve. Default is 10.
+    - ``score_threshold (float, optional)``: The score threshold for document retrieval. Default is 0.5.
+    - ``filters (dict, optional)``: The filters to apply during document retrieval. Default is an empty dictionary.
+
+Attributes:
+    - ``vectordb``: The vector database used for document retrieval.
+    - ``llm``: The language model.
+    - ``retriever_type``: The type of retriever to use.
+    - ``reranker_type``: The type of reranker to use.
+    - ``search_type``: The type of search to perform.
+    - ``search_args``: The arguments for the search.
+    - ``retriever``: The retriever used for document retrieval.
+    - ``reranker``: The reranker used for document reranking.
+
+Methods:
+    - ``_init_retriever(retriever_type)``: Initializes the specific retriever based on the retriever_type.
+
+        - ``retriever_type (str)``: The type of retriever to initialize.
+
+    - ``_init_reranker(reranker_type)``: Initializes the specific reranker based on the reranker_type.
+
+        - ``reranker_type (str)``: The type of reranker to initialize.
+
+    - ``retrieve_and_rerank(query)``: Retrieves documents using the configured retriever and then reranks them using the configured reranker.
+
+        - ``query (str)``: The input query string.
+        
+.. code-block:: python
+    
+    from maxaillm.data.embeddings.MaxHuggingFaceEmbeddings import MaxHuggingFaceEmbeddings
+    from maxaillm.data.retriever.Retriever import MaxRetriever
+    from maxaillm.data.vectorstore.MaxPGVector import MaxPGVector
+    
+    
+    # initialize embedding model
+    model_name = "sentence-transformers/all-mpnet-base-v2"
+    model_kwargs = {'device': 'cpu'}
+    encode_kwargs = {'normalize_embeddings': False}
+    embeddings = MaxHuggingFaceEmbeddings(
+        model_name=model_name,
+        model_kwargs=model_kwargs,
+        encode_kwargs=encode_kwargs
+    )
+    
+    # add docs to VectorDB
+    conn_str = MaxPGVector.get_conn_string()
+    vectordb = MaxPGVector(connection_string=conn_str, collection_name="collection_name", embedding_function=embeddings.to_langchain())
+    vectordb.add(docs)
+    
+    # retrieve the text from VectorDB
+    retrieve = MaxRetriever(vectordb=vectordb, llm=llm, reranker_type="LostInMiddle", k=2)
+    output = retrieve.retrieve_and_rerank("some question?")
+    
