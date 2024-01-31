@@ -10,7 +10,6 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../../maxaillm/agents/'))
 
-
 project = "'Max.AI LLM'"
 copyright = "2024, 'Team Max.AI'"
 author = "'Team Max.AI'"
@@ -19,7 +18,12 @@ release = '0.1.0'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = [
+    'sphinx.ext.todo',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon'
+]
 
 templates_path = ['_templates']
 exclude_patterns = []

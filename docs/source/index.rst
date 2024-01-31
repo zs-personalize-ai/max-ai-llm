@@ -3,18 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to 'Max.AI LLM''s documentation!
+Welcome to Max.AI LLM's documentation!
 ========================================
+**Max.AI LLM** provides a ready list of utilities to create LLM applications.
+
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 3
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   getting_started
+   agents
+   app
+   data
+   documents
+   model
+   tuning
