@@ -39,38 +39,59 @@ Attributes:
     - ``cost_param``: The cost parameters.
     
 Methods:
-    - ``initialize_llm(provider: str, model_name: str, model_kwargs: dict) -> maxaillm.model.BaseLLM.BaseLLM``: Initializes a large language model (LLM) based on the provided provider, model name, and model arguments.
+    - ``initialize_llm(provider, model_name, model_kwargs)``: Initializes the LLM.
+
+        - ``provider (str)``: Provider of the LLM.
+        - ``model_name (str)``: Name of the model.
+        - ``model_kwargs (dict)``: Additional arguments for the model.
+        
+    - ``set_collection(collection)``: Sets the collection name and initializes the vector database.
+
+        - ``collection (str)``: The name of the collection to be used in the vector database.
+
+    - ``get_collection()``: Returns the current collection name.
+
+    - ``init_vector_db()``: Initializes the vector database.
     
-        - ``provider (str)``: The name of the large language provider. Supported providers include 'anthropic', 'openai', 'azureopenai', 'azure', 'bedrock', and 'aws'.
-        - ``model_name (str)``: The name of the LLM model for the given provider. If not provided, a default model is used based on the provider.
-        - ``model_kwargs (dict)``: A dictionary of keyword arguments for the LLM model. Expected keys are 'temperature' and 'top_p'.
-    - ``set_collection(collection: str) -> None``: Sets the collection name and initializes the vector database.
-    - ``get_collection(collection: str) -> str``: Gets the collection name.
-    - ``init_vector_db() -> None``: Initializes the vector database based on the specified vector store.
-    - ``process_file(file: str, doc_metadata: dict) -> list``: Processes a file by extracting text, cleaning it, splitting it into chunks, and adding the chunks to the vector database.
+    - ``process_file(file, doc_metadata)``: Processes a file and adds it to the vector database.
+
+        - ``file (str)``: File to process.
+        - ``doc_metadata (dict)``: Metadata for the document.
+        
+    - ``add(files, default_metadata)``: Adds files to the collection.
+
+        - ``files (list[str])``: List of files to add.
+        - ``default_metadata (list[dict])``: Default metadata for the files.
     
-        - ``file (str)``: The file to be processed.
-        - ``doc_metadata (dict)``: Additional metadata for the document.
-    - ``add(files: List[str], default_metadata: List[Dict]) -> bool``: Adds documents to a specified collection from given files.
-        - ``files (List[str])``: A list of file paths to be processed and added to the collection.
-        - ``default_metadata (List[Dict], optional)``: A list of metadata dictionaries corresponding to each file. Defaults to an empty list.
-    - ``query(query: str, k: int, filters: dict, score_threshold: float, prompt_config: dict) -> str``: Queries the collection and generates a response based on the given query.
-        - ``query (str, optional)``: The query to be processed. Defaults to an empty string.
-        - ``search_type (str, optional)``: The type of search to be performed. Defaults to "mmr".
-        - ``k (int, optional)``: The number of top results to return. Defaults to 10.
-        - ``filters (dict, optional)``: Filters to apply during the search. Defaults to an empty dictionary.
-        - ``score_threshold (float, optional)``: The minimum score threshold for the results. Defaults to 0.05.
-        - ``prompt_config (optional)``: Configuration for the prompt. If not provided, the instance's prompt configuration is used.
-    - ``aquery(query: str, k: int, filters: dict, search_type: str, score_threshold: float, prompt_config, chat_session, message_id)``: Queries the collection asynchronously and generates a response based on the given query.
-        - ``query (str, optional)``: The query to be processed. Defaults to an empty string.
-        - ``k (int, optional)``: The number of top results to return. Defaults to 10.
-        - ``filters (dict, optional)``: Filters to apply during the search. Defaults to an empty dictionary.
-        - ``search_type (str, optional)``: The type of search to be performed. Defaults to "mmr".
-        - ``score_threshold (float, optional)``: The minimum score threshold for the results. Defaults to 0.05.
-        - ``prompt_config (optional)``: Configuration for the prompt. If not provided, the instance's prompt configuration is used.
-        - ``chat_session (optional)``: The chat session to be used for the query. If provided, the chat history is used in the query.
-        - ``message_id (optional)``: The ID of the message to be queried.
-    - get_sources
+    - ``query(query, search_type, k, filters, score_threshold, prompt_config)``: Queries the collection and generates a response.
+
+        - ``query (str)``: Query to use.
+        - ``search_type (str)``: Type of search to perform.
+        - ``k (int)``: Number of results to return.
+        - ``filters (dict)``: Filters to apply.
+        - ``score_threshold (float)``: Threshold for the score.
+        - ``prompt_config (dict)``: Configuration for the prompt.
+        
+    - ``aquery(query, k, filters, search_type, score_threshold, prompt_config, chat_session, message_id)``: Asynchronously queries the collection and generates a response.
+
+        - ``query (str)``: Query to use.
+        - ``k (int)``: Number of results to return.
+        - ``filters (dict)``: Filters to apply.
+        - ``search_type (str)``: Type of search to perform.
+        - ``score_threshold (float)``: Threshold for the score.
+        - ``prompt_config (dict)``: Configuration for the prompt.
+        - ``chat_session (str)``: Chat session to use.
+        - ``message_id (str)``: ID of the message.
+    
+    - ``get_sources(query, search_type, k, filters, score_threshold, top_k, chat_session)``: Retrieves sources based on the query.
+
+        - ``query (str)``: Query to use.
+        - ``search_type (str)``: Type of search to perform.
+        - ``k (int)``: Number of results to return.
+        - ``filters (dict)``: Filters to apply.
+        - ``score_threshold (float)``: Threshold for the score.
+        - ``top_k (bool)``: Whether to return top k results.
+        - ``chat_session (str, optional)``: Chat session to use.
         
 
 Raises:
