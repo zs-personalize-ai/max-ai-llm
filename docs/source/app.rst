@@ -22,14 +22,21 @@ Attributes:
     - ``generators (dict[str, Generator])``: A dictionary mapping generator names to their instances.
     - ``selected_generator (Generator)``: The currently selected generator for response generation.
     
-Returns:
-    - ``str``: The generated response.
-    - ``bool``: True if the generator was successfully set, False otherwise.
-    - ``dict[str, Generator]``: The available generators.
-    - ``int``: The number of tokens in the formatted response.
-    
-.. code_block:: python
+.. code-block:: python
     from maxaillm.app.generator.MaxGenerator import MaxGenerator
+    
+    
+    # define prompt configuration
+    p_conf = {'moderations':'', 'task':'', 'identity':''}
+    
+    # initialize MaxGenerator
+    mg = MaxGenerator(llm=llm, method='stuff', prompt_config=p_conf, engine="langchain")
+    
+    # generate batch response
+    mg.generate(query='Explain Reinforcement Learning', context=out)
+    
+    # to generate 
+    mg.generate_stream(query='Explain Reinforcement Learning', context=out)
 
 Methods:
     - ``generate(query, context, conversation)``: Generates a response based on the query and context.
