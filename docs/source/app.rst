@@ -49,6 +49,7 @@ Methods:
         - ``chat (str)``: The chat history.
         
 .. code-block:: python
+
     from maxaillm.app.generator.MaxGenerator import MaxGenerator
     
     
