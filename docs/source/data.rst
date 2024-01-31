@@ -476,3 +476,186 @@ Methods:
     retrieve = MaxRetriever(vectordb=vectordb, llm=llm, reranker_type="LostInMiddle", k=2)
     output = retrieve.retrieve_and_rerank("some question?")
     
+    
+vector_store
+*************
+
+MaxLangchainVectorStore
+^^^^^^^^^^^^^^^^^^^^^^^^
+MaxLangchainVectorStore is a class that inherits from MaxVectorStoreBase and represents a vector store for language chains. It includes specific configurations for the language chain vector store.
+
+Args:
+    - ``vectorstore (VectorStore)``: The vector store to be used.
+
+Attributes:
+    - ``vectorstore``: The vector store used.
+    - ``supported_search_types``: The types of search supported by this vector store.
+
+Methods:
+    - ``add(data, metadata, **kwargs)``: Adds a vector to the vector store.
+
+        - ``data (Union[str, List[str], LangchainDocument, List[LangchainDocument]])``: The data to be added.
+        - ``metadata (Union[dict, List[dict], None], optional)``: The metadata for the data. Default is None.
+
+    - ``add_async(data, metadata, **kwargs)``: Asynchronously adds a vector to the vector store.
+
+    - ``delete(ids, **kwargs)``: Deletes vectors corresponding to ids from the vector store.
+
+        - ``ids (Union[List[str], str])``: The ids of the vectors to be deleted.
+
+    - ``delete_async(ids, **kwargs)``: Asynchronously deletes vectors corresponding to ids from the vector store.
+
+    - ``search(query, k, search_type, score, metadata_filter, return_metadata, **kwargs)``: Performs a query on the vector store.
+
+        - ``query (Union[str, List[float]])``: The query to be performed.
+        - ``k (int, optional)``: The number of results to return. Default is 3.
+        - ``search_type (str, optional)``: The type of search to be performed. Default is "similarity".
+        - ``score (bool, optional)``: Whether to return the score. Default is False.
+        - ``metadata_filter (Union[dict, None], optional)``: The metadata filter for the search. Default is None.
+        - ``return_metadata (bool, optional)``: Whether to return the metadata. Default is True.
+
+    - ``search_async(query, k, search_type, score, metadata_filter, return_metadata, **kwargs)``: Asynchronously performs a query on the vector store.
+
+    - ``to_langchain()``: Converts the vector store to a class implementing the langchain vector db interface.
+    
+    
+MaxMilvus
+^^^^^^^^^^
+MaxMilvus is a class that inherits from MaxLangchainVectorStore and represents a Milvus vector store. It includes specific configurations for the Milvus vector store.
+
+Args:
+    - ``embedding_function (Union[Embeddings, MaxEmbeddingsBase])``: The embedding function to be used.
+    - ``collection_name (str)``: The name of the collection.
+    - ``connection_args (Optional[Dict[str, Any]])``: The arguments for the connection. Default is None.
+    - ``consistency_level (str, optional)``: The consistency level. Default is "Session".
+    - ``index_params (Optional[dict], optional)``: The parameters for the index. Default is None.
+    - ``search_params (Optional[dict], optional)``: The parameters for the search. Default is None.
+    - ``drop_old (Optional[bool], optional)``: Whether to drop the old data. Default is False.
+    - ``primary_field (str, optional)``: The primary field. Default is "pk".
+    - ``text_field (str, optional)``: The text field. Default is "text".
+    - ``vector_field (str, optional)``: The vector field. Default is "vector".
+
+Attributes:
+    - ``vectorstore``: The Milvus vector store used.
+
+Methods:
+    - ``delete(ids, **kwargs)``: Deletes vectors corresponding to ids from the vector store.
+
+        - ``ids (Union[List[str], str])``: The ids of the vectors to be deleted.
+
+    - ``delete_async(ids, **kwargs)``: Asynchronously deletes vectors corresponding to ids from the vector store.
+
+    - ``get_search_types()``: Returns the types of search supported by this vector store.
+    
+
+MaxPGVector
+^^^^^^^^^^^
+MaxPGVector is a class that inherits from MaxLangchainVectorStore and represents a PostgreSQL vector store. It includes specific configurations for the PostgreSQL vector store.
+
+Args:
+    - ``connection_string (str)``: The connection string for the PostgreSQL database.
+    - ``embedding_function (Union[Embeddings, MaxEmbeddingsBase])``: The embedding function to be used.
+    - ``collection_name (str, optional)``: The name of the collection. Default is DEFAULT_COLLECTION_NAME.
+    - ``collection_metadata (Optional[Dict])``: The metadata for the collection. Default is None.
+    - ``distance_strategy (DistanceStrategy, optional)``: The distance strategy to be used. Default is DEFAULT_DISTANCE_STRATEGY.
+    - ``pre_delete_collection (bool, optional)``: Whether to delete the collection before creating a new one. Default is False.
+    - ``logger (Optional[logging.Logger])``: The logger to be used. Default is None.
+    - ``relevance_score_fn (Optional[Callable[[float], float]])``: The function to calculate the relevance score. Default is None.
+    - ``connection (Optional[sqlalchemy.engine.Connection])``: The SQLAlchemy connection to be used. Default is None.
+    - ``engine_args (Optional[Dict[str, Any]])``: The arguments for the SQLAlchemy engine. Default is None.
+
+Attributes:
+    - ``vectorstore``: The PostgreSQL vector store used.
+
+Methods:
+    - ``get_conn_string()``: Returns the connection string for the PostgreSQL database.
+
+    - ``search_metadata(metadata_filter, k, return_metadata)``: Queries the collection.
+
+        - ``metadata_filter (Optional[Dict[str, str]])``: The filter for the metadata. Default is None.
+        - ``k (int)``: The number of results to return. Default is -1.
+        - ``return_metadata (bool)``: Whether to return the metadata. Default is True.
+
+    - ``delete_async(ids, **kwargs)``: Asynchronously deletes vectors corresponding to ids from the vector store.
+
+        - ``ids (Union[str, List[str]])``: The ids of the vectors to be deleted.
+
+    - ``result_to_vector_result(pg_result)``: Converts the result from the PostgreSQL query to a vector result.
+
+    - ``search(query, k, search_type, score, metadata_filter, return_metadata, **kwargs)``: Searches the vector store.
+
+    - ``search_async(query, k, search_type, score, metadata_filter, return_metadata, **kwargs)``: Asynchronously searches the vector store.
+
+    - ``drop()``: Deletes the vector collection and documents from the PostgreSQL vector store.
+
+Raises:
+    - ``EnvironmentError``: If the environment variables for the PostgreSQL database are not set.
+    - ``ValueError``: If neither query nor metadata_filter is set in the search and search_async methods.
+    
+    
+MaxRedis
+^^^^^^^^
+MaxRedis is a class that inherits from MaxLangchainVectorStore and represents a Redis vector store. It includes specific configurations for the Redis vector store.
+
+Args:
+    - ``index_name (str)``: The name of the index.
+    - ``embedding_function (Union[Embeddings, MaxEmbeddingsBase])``: The embedding function to be used.
+    - ``redis_url (str, optional)``: The Redis URL. Default is None.
+    - ``index_schema (Optional[Union[Dict[str, str], str, os.PathLike]], optional)``: The schema for the index. Default is None.
+    - ``vector_schema (Optional[Dict[str, Union[str, int]]], optional)``: The schema for the vector. Default is None.
+    - ``relevance_score_fn (Optional[Callable[[float], float]], optional)``: The function to calculate the relevance score. Default is None.
+    - ``key_prefix (Optional[str], optional)``: The prefix for the key. Default is None.
+
+Attributes:
+    - ``redis_url``: The Redis URL used.
+    - ``vectorstore``: The Redis vector store used.
+    - ``schema``: The schema used.
+
+Methods:
+    - ``_build_schema(index_name)``: Builds the schema for the index.
+
+        - ``index_name (str)``: The name of the index.
+
+    - ``add(data, metadata, **kwargs)``: Adds data to the vector store.
+
+        - ``data (Union[str, List[str], LangchainDocument, List[LangchainDocument]])``: The data to be added.
+        - ``metadata (Union[dict, List[dict], None], optional)``: The metadata for the data. Default is None.
+
+    - ``add_async(data, metadata, **kwargs)``: Asynchronously adds data to the vector store.
+
+    - ``delete(ids)``: Deletes vectors corresponding to ids from the vector store.
+
+        - ``ids (Union[List[str], str])``: The ids of the vectors to be deleted.
+
+    - ``delete_async(ids, **kwargs)``: Asynchronously deletes vectors corresponding to ids from the vector store.
+
+    - ``search(query, k, search_type, score, metadata_filter, return_metadata, **kwargs)``: Searches the vector store.
+
+        - ``query (any, optional)``: The query for the search. Default is None.
+        - ``k (int, optional)``: The number of results to return. Default is 3.
+        - ``search_type (str, optional)``: The type of search. Default is "similarity".
+        - ``score (bool, optional)``: Whether to return the score. Default is False.
+        - ``metadata_filter (Union[dict, None], optional)``: The filter for the metadata. Default is None.
+        - ``return_metadata (bool, optional)``: Whether to return the metadata. Default is True.
+
+    - ``search_async(query, k, search_type, score, metadata_filter, return_metadata, **kwargs)``: Asynchronously searches the vector store.
+
+    - ``redis_result_to_vector_result(redis_result)``: Converts a Redis result to a vector result.
+
+        - ``redis_result (any)``: The Redis result to be converted.
+
+    - ``get_redis_filters(metadata)``: Gets the Redis filters for the metadata.
+
+        - ``metadata (dict)``: The metadata for which to get the filters.
+
+    - ``search_metadata(metadata_filter, k, return_metadata)``: Searches the metadata.
+
+        - ``metadata_filter (dict)``: The filter for the metadata.
+        - ``k (int, optional)``: The number of results to return. Default is -1.
+        - ``return_metadata (bool, optional)``: Whether to return the metadata. Default is True.
+
+    - ``drop()``: Drops the vector store.
+
+Raises:
+    - ``ValueError``: If one of query or metadata_filter is not set for the search and search_async methods.
+    - ``ValueError``: If all metadata filter keys are not present in the vector store index schema for the get_redis_filters method.
