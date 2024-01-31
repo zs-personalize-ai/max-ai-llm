@@ -40,6 +40,7 @@ Attributes:
     
 Methods:
     - ``initialize_llm(provider: str, model_name: str, model_kwargs: dict) -> maxaillm.model.BaseLLM.BaseLLM``: Initializes a large language model (LLM) based on the provided provider, model name, and model arguments.
+    
         - ``provider (str)``: The name of the large language provider. Supported providers include 'anthropic', 'openai', 'azureopenai', 'azure', 'bedrock', and 'aws'.
         - ``model_name (str)``: The name of the LLM model for the given provider. If not provided, a default model is used based on the provider.
         - ``model_kwargs (dict)``: A dictionary of keyword arguments for the LLM model. Expected keys are 'temperature' and 'top_p'.
@@ -47,6 +48,7 @@ Methods:
     - ``get_collection(collection: str) -> str``: Gets the collection name.
     - ``init_vector_db() -> None``: Initializes the vector database based on the specified vector store.
     - ``process_file(file: str, doc_metadata: dict) -> list``: Processes a file by extracting text, cleaning it, splitting it into chunks, and adding the chunks to the vector database.
+    
         - ``file (str)``: The file to be processed.
         - ``doc_metadata (dict)``: Additional metadata for the document.
     - ``add(files: List[str], default_metadata: List[Dict]) -> bool``: Adds documents to a specified collection from given files.
