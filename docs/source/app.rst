@@ -21,10 +21,38 @@ Args:
 Attributes:
     - ``generators (dict[str, Generator])``: A dictionary mapping generator names to their instances.
     - ``selected_generator (Generator)``: The currently selected generator for response generation.
+    
+Returns:
+    - ``str``: The generated response.
+    - ``bool``: True if the generator was successfully set, False otherwise.
+    - ``dict[str, Generator]``: The available generators.
+    - ``int``: The number of tokens in the formatted response.
+    
+.. code_block:: python
+    from maxaillm.app.generator.MaxGenerator import MaxGenerator
 
 Methods:
-    - ``generate(query: str, context: List[str], conversation: List[dict] = []) -> str``: Generates an answer based on a list of queries, contexts, and conversational context.
-    - ``generate_stream(query: str, context: List[str], conversation: List[dict] = []) -> Iterator[str]``: Generates a stream of responses based on queries, contexts, and conversational context.
-    - ``set_generator(generator: str) -> bool``: Sets the currently active generator.
-    - ``get_generators() -> Dict[str, Generator]``: Returns the available generators.
+    - ``generate(query, context, conversation)``: Generates a response based on the query and context.
+
+        - ``query (str)``: The query to generate a response for.
+        - ``context (List[str])``: The context for the query.
+        - ``conversation (List[dict], optional)``: The conversation history.
+
+    - ``generate_stream(query, context, conversation)``: Asynchronously generates a response based on the query and context.
+
+        - ``query (str)``: The query to generate a response for.
+        - ``context (List[str])``: The context for the query.
+        - ``conversation (List[dict], optional)``: The conversation history.
+
+    - ``set_generator(generator)``: Sets the current generator.
+
+        - ``generator (str)``: The name of the generator to set.
+
+    - ``get_generators()``: Returns the available generators.
+
     - ``calculate_tokens(prompt_config, context, query, chat)``: Calculates the number of tokens in the formatted response.
+
+        - ``prompt_config (dict)``: The configuration for the prompt.
+        - ``context (List[str])``: The context for the query.
+        - ``query (str)``: The query to generate a response for.
+        - ``chat (str)``: The chat history.

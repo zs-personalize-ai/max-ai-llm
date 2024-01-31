@@ -103,27 +103,3 @@ Returns:
 
 >>> from maxaillm.app.agent import MaxAgentQA
 >>> agent = MaxAgentQA(llm_provider="anthropic",model_name ="claude-2", chunk_size=1000, stream=True, collection="myCollection", prompt_config=myPromptConfig)
-
-
-Methods
-^^^^^^^
-    
-    
-get_sources
------------
-Retrieves the sources based on the given query.
-
-Args:
-    - ``query (str, optional)``: The query to be processed. Defaults to an empty string.
-    - ``search_type (str, optional)``: The type of search to be performed. Defaults to "mmr".
-    - ``k (int, optional)``: The number of top results to return. Defaults to 10.
-    - ``filters (dict, optional)``: Filters to apply during the search. Defaults to an empty dictionary.
-    - ``score_threshold (float, optional)``: The minimum score threshold for the results. Defaults to 0.05.
-    - ``top_k (bool, optional)``: If True, returns the top k page contents. If False, returns the sources in a JSON format. Defaults to False.
-    - ``chat_session (optional)``: The chat session to be used for the query. If provided, the chat history is used in the query.
-
-Raises:
-    - ``Exception``: If any error occurs during the retrieval of sources.
-
-Returns:
-    - If ``top_k`` is True, returns a list of page contents. If ``top_k`` is False, returns the sources in a JSON format.
