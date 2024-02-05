@@ -19,7 +19,10 @@ release = '1.1.0'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 # Add any Sphinx extension module names here, as strings
-extensions = ['sphinx.ext.napoleon']
+extensions = [
+    'sphinx.ext.napoleon',
+    'nbsphinx'
+]
 
 # Napoleon settings
 napoleon_google_docstring = True
