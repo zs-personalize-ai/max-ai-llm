@@ -26,15 +26,24 @@ Max.AI LLM Architecture
     
 |
 |
-|
 
 .. toctree::
    :maxdepth: 2
-
-   getting_started
+   :hidden:
+   :caption: 🧠 Max.AI LLM
+   
+   getting_started 
    agents
    app
    data
    documents
    model
    tuning
+
+|
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 🔗 Data Integration
+
+   data_integration/architecture
