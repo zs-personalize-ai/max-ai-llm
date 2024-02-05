@@ -1,7 +1,7 @@
-data
-====
+Data Proceesing
+==============
 
-chunking
+Chunking
 ********
 
 MarkdownHeaderSplitter
@@ -159,7 +159,7 @@ Raises:
     )
 
 
-embeddings
+Embeddings
 **********
 
 MaxHuggingFaceEmbeddings
@@ -232,7 +232,7 @@ Methods:
         - ``text (str)``: The query text to embed.
         
         
-extractor
+Extractor
 *********
 
 MaxExtractor
@@ -321,7 +321,7 @@ Raises:
     )
     
 
-retriever
+Retriever
 *********
 
 HyDE
@@ -477,7 +477,7 @@ Methods:
     output = retrieve.retrieve_and_rerank("some question?")
     
     
-vector_store
+Vector store
 *************
 
 MaxLangchainVectorStore

@@ -1,5 +1,5 @@
-agents
-======
+Max Agents
+==========
 
 MaxAgentQA
 **********

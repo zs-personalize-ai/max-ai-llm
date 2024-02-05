@@ -1,7 +1,7 @@
-model
+Model
 =====
 
-llm
+LLM
 ****
 
 MaxAnthropicLLM
