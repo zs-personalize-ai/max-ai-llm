@@ -24,9 +24,10 @@ Max.AI LLM Architecture
    :align: center
    :alt: Max.AI LLM Architecture
     
-    
-    
-    
+|
+|
+|
+
 .. toctree::
    :maxdepth: 2
 
