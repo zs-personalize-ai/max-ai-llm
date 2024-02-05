@@ -15,11 +15,17 @@ Max.AI Gen.AI platform's core capabilities include:
     - Prompting and embedding layers
     - Fine-tuning and optimization
     
+
 .. image:: static/Gen.AI.png
    :width: 600px
    :align: center
    :alt: Max.AI LLM Architecture
+   
+    Max.AI LLM Architecture
 
+
+Index
+^^^^^^^^
 
 .. toctree::
    :maxdepth: 2
@@ -31,3 +37,7 @@ Max.AI Gen.AI platform's core capabilities include:
    documents
    model
    tuning
+
+
+Try Max.AI LLM
+^^^^^^^^^^^^^^

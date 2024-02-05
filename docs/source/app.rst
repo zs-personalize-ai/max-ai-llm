@@ -1,7 +1,7 @@
 App
 ====
 
-generator
+Generator
 ************
 
 MaxGenerator
@@ -66,7 +66,7 @@ Methods:
     mg.generate_stream(query='Explain Reinforcement Learning', context=out)
         
         
-memory
+Memory
 ******
 
 MaxMemory
