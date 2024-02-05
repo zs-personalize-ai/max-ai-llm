@@ -16,7 +16,8 @@ Max.AI Gen.AI platform's core capabilities include:
     - Fine-tuning and optimization
     
 .. image:: static/Gen.AI.png
-   :width: 400px
+   :width: 600px
+   :align: center
    :alt: Max.AI LLM Architecture
 
 
