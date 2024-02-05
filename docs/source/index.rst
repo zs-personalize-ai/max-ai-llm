@@ -24,22 +24,14 @@ Max.AI LLM Architecture
    :align: center
    :alt: Max.AI LLM Architecture
 
-Index
-^^^^^
 
 .. toctree::
    :maxdepth: 2
 
-   tutorials
+
    agents
    app
    data
    documents
    model
    tuning
-
-
-Try Max.AI LLM
-^^^^^^^^^^^^^^
-    - `Max.AI LLM Components <https://github.com/zs-personalize-ai/Max.AI-Playground/blob/master/llm/MaxLLMComponents.ipynb>`_
-    - `Max.AI Agent Builder <https://github.com/zs-personalize-ai/Max.AI-Playground/blob/master/llm/MaxQAAgent.ipynb>`_
