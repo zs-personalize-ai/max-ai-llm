@@ -28,7 +28,7 @@ Max.AI LLM Architecture
 .. toctree::
    :maxdepth: 2
 
-
+   getting_started
    agents
    app
    data
