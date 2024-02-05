@@ -40,7 +40,6 @@ Max.AI LLM Architecture
    model
    tuning
 
-|
 
 .. toctree::
    :maxdepth: 2
