@@ -45,4 +45,4 @@ Max.AI LLM Architecture
    :maxdepth: 2
    :caption: 🔗 Data Integration
 
-   data_integration/architecture
+   data_integration/introduction
