@@ -29,7 +29,6 @@ Max.AI LLM Architecture
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
    :caption: 🧠 Max.AI LLM
    
    getting_started 
@@ -45,4 +44,5 @@ Max.AI LLM Architecture
    :maxdepth: 2
    :caption: 🔗 Data Integration
 
-   data_integration/introduction
+   data_integration/architecture
+   data_integration/connectors
